@@ -1,0 +1,193 @@
+$primary-color: #8e44ad;
+$primary-color-lighter: #b978d4;
+$second-color: #eee;
+$second-color-lighter: #fff;
+$spacing-small: 10px;
+$spacing-medium: 20px;
+$empty-img-size: 350px;
+$max-img-size: 500px;
+$radius: 4px;
+$radius-medium: 10px;
+$pulse-duration: 750ms;
+
+body {
+    margin: 0;
+    font-family: 'Work Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: $second-color;
+    background-image: url("/random-dogs/paws.svg");
+    background-attachment: fixed;
+    background-size: contain;
+    background-position: top;
+
+    svg{
+        fill: $second-color-lighter;
+    }
+  }
+
+section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+
+    .imageBg{
+        border: 10px solid;
+        border-image-slice: 1;
+        border-width: 2px;
+        border-image: linear-gradient(to bottom, $primary-color, $second-color-lighter) 1;
+        background-image: url("/random-dogs/window.svg");
+        background-position: top;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-color: $second-color-lighter;
+        border-radius: 3px;
+        width: $max-img-size;
+        height: $max-img-size;
+        padding: 60px 30px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 1px 1px 8px 0.3px rgb(189, 189, 189);
+
+        .dogs-img{
+            img {
+                border-radius: $radius-medium;
+                max-width: $max-img-size;
+                max-height: $max-img-size;
+            }
+
+            .loader {
+                position: relative;
+                width: $spacing-small;
+                height: $spacing-small;
+                border-radius: $radius-medium;
+                background: $primary-color;
+                animation: pulse $pulse-duration infinite;
+                animation-delay: ($pulse-duration / 3);
+
+                &:before, &:after {
+                  content: '';
+                  position: absolute;
+                  display: block;
+                  height: $spacing-small;
+                  width: $spacing-small;
+                  border-radius: $radius-medium;
+                  background: $primary-color;
+                  top: 50%;
+                  transform: translateY(-50%);
+                  animation: pulse $pulse-duration infinite;
+                }
+
+                &:before {
+                  left: -($spacing-medium / 1.5);
+                }
+
+                &:after {
+                  left: ($spacing-medium / 1.5);
+                  animation-delay: ($pulse-duration / 1.5);
+                }
+
+                @keyframes pulse {  
+                    50% { 
+                      background: $second-color-lighter;
+                    } 
+                  }
+            }
+
+            .errorMessage{
+                display: flex;
+                justify-content: center;
+            }
+        }
+
+        .emptyData{
+            border: 10px solid;
+            border-image-slice: 1;
+            border-width: 2px;
+            border-image: linear-gradient(to bottom, $second-color-lighter, #fffb23) 1;
+            background-color: $second-color;
+            background-size: 40px 40px;
+            background-image:
+            linear-gradient(to right, rgb(223, 223, 223) 1px, transparent 1px),
+            linear-gradient(to bottom, rgb(223, 223, 223) 1px, transparent 1px);
+            border-radius: $radius;
+            width: $empty-img-size;
+            height: $empty-img-size;
+            position: relative;
+
+            &:before{
+                content: '?';
+                position: absolute;
+                font-size: 110px;
+                color: $primary-color-lighter;
+                text-shadow: -1px -1px 0 $primary-color, 1px -1px 0 $primary-color, -1px 1px 0 $primary-color, 1px 1px 0 $primary-color;
+                left: 41%;
+                top: 31%;
+            }
+
+            &:after{
+                content: '?';
+                position: absolute;
+                font-size: 110px;
+                color: $second-color;
+                text-shadow: -1px -1px 0 $primary-color, 1px -1px 0 $primary-color, -1px 1px 0 $primary-color, 1px 1px 0 $primary-color;
+                left: 40%;
+                top: 30%;
+            }
+        }
+    }
+
+    button {
+        background-color: $primary-color;
+        color: $second-color-lighter;
+        padding: $spacing-small;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 1px;
+        cursor: pointer;
+        margin-top: $spacing-medium;
+        border: none;
+        outline: none;
+        border-radius: $radius;
+        box-shadow: 1px 1px 1px gray;
+        animation: buttonColor 1s infinite alternate;
+
+        &:hover{
+            background-color: $primary-color-lighter;
+            transition: .1s;
+        }
+
+        &:active {
+            box-shadow: 0 0 0 $second-color-lighter;
+        }
+
+        @keyframes buttonColor {
+            from {background-color: #4a11b3;}
+            to {background-color: #8211b3;}
+          }
+    }
+
+
+@media screen and (max-width: 600px) {
+    .imageBg{
+        width: 350px;
+        height: 350px;
+    }
+
+    .emptyData{
+        width: 250px;
+        height: 250px;
+    }
+
+    .dogs-img{
+        img {
+            max-width: 350px;
+            max-height: 350px;
+        }
+    }
+  }
+}
+
